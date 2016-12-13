@@ -1,13 +1,13 @@
 require File.expand_path('../lib/ru/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.authors       = ['Tom Benner']
-  s.email         = ['tombenner@gmail.com']
+  s.authors       = ['Tom Benner', 'Alexander Pavlenko']
+  s.email         = ['tombenner@gmail.com', 'alerticus@gmail.com']
   s.description = s.summary = %q{Ruby in your shell!}
-  s.homepage      = 'https://github.com/tombenner/ru'
+  s.homepage      = 'https://github.com/AlexanderPavlenko/ru'
 
   s.files         = `git ls-files`.split($\)
-  s.name          = 'ru'
+  s.name          = 'ru2'
   s.executables   = ['ru']
   s.require_paths = ['lib']
   s.version       = Ru::VERSION
