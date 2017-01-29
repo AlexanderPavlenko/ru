@@ -1,7 +1,7 @@
 PATH
-  remote: ../
+  remote: ..
   specs:
-    ru2 (2.1.5)
+    ru2 (2.2.0)
       activesupport (>= 3.2.0)
 
 GEM
@@ -50,4 +50,4 @@ DEPENDENCIES
   ru2!
 
 BUNDLED WITH
-   1.13.6
+   1.14.3
