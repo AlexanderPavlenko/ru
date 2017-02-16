@@ -1,3 +1,5 @@
+# The following require is necessary otherwise specs will occasionally fail,
+# depending on the order in which they run.  seed 26462 will cause a failure.
 require 'set'
 
 class Enumerator::Lazy
