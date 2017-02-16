@@ -1,3 +1,5 @@
+require 'set'
+
 class Enumerator::Lazy
   def [](number_or_range, length=1)
     if number_or_range.kind_of? Range
