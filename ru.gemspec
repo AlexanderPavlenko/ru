@@ -1,12 +1,14 @@
 require File.expand_path('../lib/ru/version', __FILE__)
 
 Gem::Specification.new do |s|
-  s.authors       = ['Tom Benner']
-  s.email         = ['tombenner@gmail.com']
+  s.authors     = ['Tom Benner']
+  s.email       = ['tombenner@gmail.com']
   s.description = s.summary = %q{Ruby in your shell!}
-  s.homepage      = 'https://github.com/tombenner/ru'
+  s.homepage    = 'https://github.com/tombenner/ru'
 
-  s.files         = `git ls-files`.split($\)
+  s.files         = `git ls-files -z`.split("\x0").reject do |f|
+    f.match(%r{^(test|spec|features)/})
+  end
   s.name          = 'ru'
   s.executables   = ['ru']
   s.require_paths = ['lib']

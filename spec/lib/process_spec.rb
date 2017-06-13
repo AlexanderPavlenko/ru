@@ -65,10 +65,21 @@ describe Ru::Process do
     context "no arguments" do
       it "prints help" do
         allow(STDERR).to receive(:puts) do |out|
-          expect(out).to include('Ruby in your shell!')
+          expect(out.lines[0]).to include('Usage: ru')
+          expect(out).not_to include 'Ruby in your shell!'
         end
-        allow_any_instance_of(Ru::Process).to receive(:exit).with(1)
-        run('')
+        allow_any_instance_of(Ru::Process).to receive(:exit).with(false)
+        run([])
+      end
+
+      it "runs code from stdin" do
+        out = run([], '=2 + 3')
+        expect(out).to eq('5')
+      end
+
+      it "runs code from stdin stream" do
+        out = run('--stream', '=2 + 3')
+        expect(out).to eq('5')
       end
     end
 
@@ -83,21 +94,24 @@ describe Ru::Process do
       context "-h" do
         it "shows help" do
           out = run('--help')
-          expect(out).to include('Ruby in your shell!')
+          expect(out.lines[0]).to include 'Usage: ru'
+          expect(out).to include 'Ruby in your shell!'
         end
       end
 
       context "--help" do
         it "shows help" do
           out = run('-h')
-          expect(out).to include('Ruby in your shell!')
+          expect(out.lines[0]).to include 'Usage: ru'
+          expect(out).not_to include 'Ruby in your shell!'
         end
       end
 
       context "help with a second argument" do
         it "shows help" do
           out = run(['--help', 'foo'])
-          expect(out).to include('Ruby in your shell!')
+          expect(out.lines[0]).to include 'Usage: ru'
+          expect(out).to include 'Ruby in your shell!'
         end
       end
 

@@ -1,0 +1,335 @@
+------------
+bash -c "bin/ru --debug 'each_with_index.map{ |e,i| [i,%(-),e].join }' spec/fixtures/files/test"
+---STDOUT---
+0-a
+1-b
+2-c
+
+---STDERR---
+INFO: options: {:debug=>true}
+INFO: reading files: "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>"a\nb\nc\n"}
+INFO: text mode
+INFO: serializing with output.join
+
+
+
+
+------------
+bash -c "cat spec/fixtures/files/test | bin/ru --debug 'each_with_index.map{ |e,i| [i,%(-),e].join }'"
+---STDOUT---
+0-a
+1-b
+2-c
+
+---STDERR---
+INFO: options: {:debug=>true}
+INFO: reading STDIN
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>"a\nb\nc\n"}
+INFO: text mode
+INFO: serializing with output.join
+
+
+
+
+------------
+bash -c "echo 'each_with_index.map{ |e,i| [i,%(-),e].join }' | bin/ru --debug '' spec/fixtures/files/test"
+---STDOUT---
+0-a
+1-b
+2-c
+
+---STDERR---
+INFO: options: {:debug=>true}
+INFO: reading CODE from STDIN
+INFO: reading files: "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }\n", :stdin=>"a\nb\nc\n"}
+INFO: text mode
+INFO: serializing with output.join
+
+
+
+
+------------
+bash -c "echo '1+2' | bin/ru --debug"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true}
+INFO: reading CODE from STDIN
+INFO: reading STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>""}
+INFO: STDIN is empty
+
+
+
+
+------------
+bash -c "echo '=1+2' | bin/ru --debug"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true}
+INFO: reading CODE from STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>""}
+INFO: STDIN is empty
+
+
+
+
+------------
+bash -c "bin/ru --debug --stream 'each_with_index.map{ |e,i| [i,%(-),e].join }' spec/fixtures/files/test"
+---STDOUT---
+0-a
+1-b
+2-c
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true}
+INFO: opening file "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>#<File:spec/fixtures/files/test>}
+INFO: text stream mode
+
+
+
+
+------------
+bash -c "cat spec/fixtures/files/test | bin/ru --debug --stream 'each_with_index.map{ |e,i| [i,%(-),e].join }'"
+---STDOUT---
+0-a
+1-b
+2-c
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true}
+INFO: opening STDIN
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>#<IO:<STDIN>>}
+INFO: text stream mode
+
+
+
+
+------------
+bash -c "echo 'each_with_index.map{ |e,i| [i,%(-),e].join }' | bin/ru --debug --stream '' spec/fixtures/files/test"
+---STDOUT---
+0-a
+1-b
+2-c
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true}
+INFO: reading CODE from STDIN
+INFO: opening file "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }\n", :stdin=>#<File:spec/fixtures/files/test>}
+INFO: text stream mode
+
+
+
+
+------------
+bash -c "echo '1+2' | bin/ru --debug --stream"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true}
+INFO: reading CODE from STDIN
+INFO: opening STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>#<IO:<STDIN>>}
+INFO: text stream mode
+
+
+
+
+------------
+bash -c "echo '=1+2' | bin/ru --debug --stream"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true}
+INFO: reading CODE from STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>""}
+INFO: STDIN is empty
+
+
+
+
+------------
+bash -c "bin/ru --debug --binary 'each_with_index.map{ |e,i| [i,%(-),e].join }' spec/fixtures/files/test"
+---STDOUT---
+0-97
+1-10
+2-98
+3-10
+4-99
+5-10
+
+---STDERR---
+INFO: options: {:debug=>true, :binary=>true}
+INFO: reading files: "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>"a\nb\nc\n"}
+INFO: binary mode
+INFO: serializing with output.join
+
+
+
+
+------------
+bash -c "cat spec/fixtures/files/test | bin/ru --debug --binary 'each_with_index.map{ |e,i| [i,%(-),e].join }'"
+---STDOUT---
+0-97
+1-10
+2-98
+3-10
+4-99
+5-10
+
+---STDERR---
+INFO: options: {:debug=>true, :binary=>true}
+INFO: reading STDIN
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>"a\nb\nc\n"}
+INFO: binary mode
+INFO: serializing with output.join
+
+
+
+
+------------
+bash -c "echo 'each_with_index.map{ |e,i| [i,%(-),e].join }' | bin/ru --debug --binary '' spec/fixtures/files/test"
+---STDOUT---
+0-97
+1-10
+2-98
+3-10
+4-99
+5-10
+
+---STDERR---
+INFO: options: {:debug=>true, :binary=>true}
+INFO: reading CODE from STDIN
+INFO: reading files: "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }\n", :stdin=>"a\nb\nc\n"}
+INFO: binary mode
+INFO: serializing with output.join
+
+
+
+
+------------
+bash -c "echo '1+2' | bin/ru --debug --binary"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true, :binary=>true}
+INFO: reading CODE from STDIN
+INFO: reading STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>""}
+INFO: STDIN is empty
+
+
+
+
+------------
+bash -c "echo '=1+2' | bin/ru --debug --binary"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true, :binary=>true}
+INFO: reading CODE from STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>""}
+INFO: STDIN is empty
+
+
+
+
+------------
+bash -c "bin/ru --debug --stream --binary 'each_with_index.map{ |e,i| [i,%(-),e].join }' spec/fixtures/files/test"
+---STDOUT---
+0-97
+1-10
+2-98
+3-10
+4-99
+5-10
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true, :binary=>true}
+INFO: opening file "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>#<File:spec/fixtures/files/test>}
+INFO: binary stream mode
+
+
+
+
+------------
+bash -c "cat spec/fixtures/files/test | bin/ru --debug --stream --binary 'each_with_index.map{ |e,i| [i,%(-),e].join }'"
+---STDOUT---
+0-97
+1-10
+2-98
+3-10
+4-99
+5-10
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true, :binary=>true}
+INFO: opening STDIN
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }", :stdin=>#<IO:<STDIN>>}
+INFO: binary stream mode
+
+
+
+
+------------
+bash -c "echo 'each_with_index.map{ |e,i| [i,%(-),e].join }' | bin/ru --debug --stream --binary '' spec/fixtures/files/test"
+---STDOUT---
+0-97
+1-10
+2-98
+3-10
+4-99
+5-10
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true, :binary=>true}
+INFO: reading CODE from STDIN
+INFO: opening file "spec/fixtures/files/test"
+DEBUG: {:code=>"each_with_index.map{ |e,i| [i,%(-),e].join }\n", :stdin=>#<File:spec/fixtures/files/test>}
+INFO: binary stream mode
+
+
+
+
+------------
+bash -c "echo '1+2' | bin/ru --debug --stream --binary"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true, :binary=>true}
+INFO: reading CODE from STDIN
+INFO: opening STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>#<IO:<STDIN>>}
+INFO: binary stream mode
+
+
+
+
+------------
+bash -c "echo '=1+2' | bin/ru --debug --stream --binary"
+---STDOUT---
+3
+
+---STDERR---
+INFO: options: {:debug=>true, :stream=>true, :binary=>true}
+INFO: reading CODE from STDIN
+DEBUG: {:code=>"1+2\n", :stdin=>""}
+INFO: STDIN is empty
+
+
+
