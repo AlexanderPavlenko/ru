@@ -1,3 +1,4 @@
 source 'https://rubygems.org'
 
-gemspec
+gem 'appraisal', '~> 1.0'
+gem 'rspec', '~> 3.1'

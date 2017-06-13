@@ -4,7 +4,7 @@ Ruby in your shell!
 
 <img src="https://raw.github.com/tombenner/ru/master/doc/logo.png" />
 
-[<img src="https://secure.travis-ci.org/tombenner/ru.png" />](http://travis-ci.org/tombenner/ru)
+[<img src="https://secure.travis-ci.org/AlexanderPavlenko/ru.png" />](http://travis-ci.org/AlexanderPavlenko/ru)
 
 Overview
 --------
