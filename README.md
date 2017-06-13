@@ -54,7 +54,7 @@ Installation
 ------------
 
 ```bash
-gem install ru
+gem install ru2
 ```
 
 You can now use Ruby in your shell!
