@@ -7,7 +7,7 @@ describe Ru::Process do
   describe "#run" do
     it "runs []" do
       lines = %w{john paul george ringo}
-      out = run('[1,2]', lines)
+      out   = run('[1,2]', lines)
       expect(out).to eq("paul\ngeorge")
     end
 
@@ -16,7 +16,7 @@ describe Ru::Process do
         fixture_path('files', 'bar.txt'),
         fixture_path('files', 'foo.txt')
       ]
-      out = run('files', paths)
+      out   = run('files', paths)
       expect(out).to eq("bar.txt\nfoo.txt")
     end
 
@@ -25,7 +25,7 @@ describe Ru::Process do
         fixture_path('files', 'bar.txt'),
         fixture_path('files', 'foo.txt')
       ]
-      out = run("files.format('l')", paths)
+      out   = run("files.format('l')", paths)
       lines = out.split("\n")
       expect(lines.length).to eq(2)
       lines.each do |line|
@@ -36,19 +36,19 @@ describe Ru::Process do
 
     it "runs grep" do
       lines = %w{john paul george ringo}
-      out = run("grep(/o[h|r]/)", lines)
+      out   = run("grep(/o[h|r]/)", lines)
       expect(out).to eq("john\ngeorge")
     end
 
     it "runs map with two arguments" do
       lines = %w{john paul george ringo}
-      out = run('map(:[], 0)', lines)
+      out   = run('map(:[], 0)', lines)
       expect(out).to eq(%w{j p g r}.join("\n"))
     end
 
     it "runs sort" do
       lines = %w{john paul george ringo}
-      out = run('sort', lines)
+      out   = run('sort', lines)
       expect(out).to eq(lines.sort.join("\n"))
     end
 
@@ -60,6 +60,19 @@ describe Ru::Process do
     it "runs code prepended by '='" do
       out = run('=2 + 3')
       expect(out).to eq('5')
+    end
+
+    context "filename argument" do
+      it "runs script if file is executable" do
+        out = run [fixture_path(%w{scripts executable})]
+        expect(out).to eq('1024')
+      end
+
+      it "interprets filename as a code if file is non-executable" do
+        expect {
+          run [fixture_path(%w{scripts non-executable})]
+        }.to raise_error(SyntaxError)
+      end
     end
 
     context "no arguments" do

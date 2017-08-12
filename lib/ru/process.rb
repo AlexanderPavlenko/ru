@@ -120,6 +120,10 @@ module Ru
         require 'active_support/deprecation'
         ActiveSupport::Deprecation.warn %('!1+2' syntax is going to be replaced with '=1+2')
         { code: code[1..-1], stdin: '' }
+      elsif ::File.executable?(code)
+        filename = code
+        $debug.info "reading CODE from #{filename}" if $debug
+        prepare_code(::File.read(filename), &block)
       else
         { code: code, stdin: yield }
       end

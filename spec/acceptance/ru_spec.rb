@@ -27,11 +27,12 @@ describe 'ru' do
     result
   end
 
-  it "works" do
-
+  before do
     Dir.chdir File.expand_path('../../..', __FILE__)
     OUTPUT.clear
+  end
 
+  it "works" do
     [
       '--debug',
       '--debug --stream',
@@ -51,5 +52,10 @@ describe 'ru' do
       File.open(EXPECTED, 'w') { |f| f.write(OUTPUT.join("\n")) }
       fail "output recorded, run once again"
     end
+  end
+
+  it "works as a shebang script" do
+    run %(spec/fixtures/scripts/executable /dev/null)
+    expect(OUTPUT).to eq ["------------", "bash -c \"spec/fixtures/scripts/executable /dev/null\"", "---STDOUT---", "1024\n", "---STDERR---", "", "\n\n"]
   end
 end
