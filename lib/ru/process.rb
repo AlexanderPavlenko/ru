@@ -95,7 +95,6 @@ module Ru
 
         output = context.instance_eval(parsed[:code])
       end
-      output = stdin if output == nil
 
       prepare_output(output)
     end

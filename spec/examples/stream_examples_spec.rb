@@ -133,4 +133,10 @@ describe 'stream examples' do
       end
     end
   end
+
+  it "returns empty set instead of everything" do
+    lines = "1\n2\n3\n"
+    out   = run_stream('select { |line| line.to_i > 3 }', lines)
+    expect(out).to eq ''
+  end
 end
